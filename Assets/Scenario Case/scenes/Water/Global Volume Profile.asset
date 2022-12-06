@@ -1,0 +1,338 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8342432110417356848
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9f1e80a158444958cea45ca9c1c85fe, type: 3}
+  m_Name: Scan
+  m_EditorClassIdentifier: 
+  active: 1
+  effectTimeSpan:
+    m_OverrideState: 1
+    m_Value: 5
+  fadeOutTime:
+    m_OverrideState: 1
+    m_Value: 3.5
+  scanSpeed:
+    m_OverrideState: 1
+    m_Value: 35
+  scanWidth:
+    m_OverrideState: 1
+    m_Value: 308
+  scanLineSmoothness:
+    m_OverrideState: 1
+    m_Value: 0.169
+  scanLineColor:
+    m_OverrideState: 1
+    m_Value: {r: 0, g: 2.0392158, b: 4, a: 1}
+  dotDensity:
+    m_OverrideState: 1
+    m_Value: 1
+  dotSize:
+    m_OverrideState: 1
+    m_Value: 0.25
+  isoHeightDensity:
+    m_OverrideState: 1
+    m_Value: 0.173
+  isoHeightThickness:
+    m_OverrideState: 1
+    m_Value: 0.029
+  outLine:
+    m_OverrideState: 1
+    m_Value: 1
+  outlineThickness:
+    m_OverrideState: 1
+    m_Value: 0.861
+  decolorationStrength:
+    m_OverrideState: 1
+    m_Value: 1
+  insideBrightness:
+    m_OverrideState: 1
+    m_Value: 0.647
+  glitchStrength:
+    m_OverrideState: 1
+    m_Value: 1
+  fresnel:
+    m_OverrideState: 1
+    m_Value: 1
+  glitch:
+    m_OverrideState: 1
+    m_Value: 1
+  dotTexture:
+    m_OverrideState: 1
+    m_Value: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
+--- !u!114 &-8014116073552922761
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5485954d14dfb9a4c8ead8edb0ded5b1, type: 3}
+  m_Name: LiftGammaGain
+  m_EditorClassIdentifier: 
+  active: 1
+  lift:
+    m_OverrideState: 1
+    m_Value: {x: 0.9776071, y: 1, z: 0.9182214, w: 0}
+  gamma:
+    m_OverrideState: 1
+    m_Value: {x: 0.61613077, y: 0.71950275, z: 1, w: 0.3071253}
+  gain:
+    m_OverrideState: 1
+    m_Value: {x: 0.7491065, y: 0.858397, z: 1, w: 0.54054046}
+--- !u!114 &-7634870501819011408
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c32c85c4a04459dafb02fbd2a8cbada, type: 3}
+  m_Name: Glitch
+  m_EditorClassIdentifier: 
+  active: 0
+  direction:
+    m_OverrideState: 1
+    m_Value: 0
+  indensity:
+    m_OverrideState: 1
+    m_Value: -0.063
+  speed:
+    m_OverrideState: 1
+    m_Value: 10.1
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7fd9488000d3734a9e00ee676215985, type: 3}
+  m_Name: Global Volume Profile
+  m_EditorClassIdentifier: 
+  components:
+  - {fileID: 4917436408881462284}
+  - {fileID: 1500467973533902112}
+  - {fileID: -8014116073552922761}
+  - {fileID: 1150107693951557605}
+  - {fileID: -7634870501819011408}
+  - {fileID: 483555620532498282}
+  - {fileID: -8342432110417356848}
+--- !u!114 &483555620532498282
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b85e086ae284ff4ab1a464fa6b30a37, type: 3}
+  m_Name: Fog
+  m_EditorClassIdentifier: 
+  active: 1
+  activeHeightFog:
+    m_OverrideState: 1
+    m_Value: 1
+  fogStartHeight:
+    m_OverrideState: 1
+    m_Value: -138.8
+  fogEndHeight:
+    m_OverrideState: 1
+    m_Value: 339.6
+  heightFogIntensity:
+    m_OverrideState: 1
+    m_Value: 4.05
+  heightGradient:
+    m_OverrideState: 1
+    m_Value:
+      serializedVersion: 2
+      key0: {r: 0, g: 0.35531735, b: 0.4339623, a: 1}
+      key1: {r: 0.46569067, g: 0.8584906, b: 0.65675044, a: 1}
+      key2: {r: 0.15686274, g: 1, b: 0.72635806, a: 0.75686276}
+      key3: {r: 0, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
+      ctime0: 0
+      ctime1: 10601
+      ctime2: 56669
+      ctime3: 0
+      ctime4: 0
+      ctime5: 0
+      ctime6: 0
+      ctime7: 0
+      atime0: 0
+      atime1: 10601
+      atime2: 65535
+      atime3: 0
+      atime4: 0
+      atime5: 0
+      atime6: 0
+      atime7: 0
+      m_Mode: 0
+      m_NumColorKeys: 3
+      m_NumAlphaKeys: 3
+  activeDistanceFog:
+    m_OverrideState: 1
+    m_Value: 1
+  fogNear:
+    m_OverrideState: 1
+    m_Value: -91.5
+  fogFar:
+    m_OverrideState: 1
+    m_Value: 284.4
+  distanceFogIntensity:
+    m_OverrideState: 1
+    m_Value: 3.69
+  distanceGradient:
+    m_OverrideState: 1
+    m_Value:
+      serializedVersion: 2
+      key0: {r: 0.050980397, g: 0.41176474, b: 0.45882356, a: 1}
+      key1: {r: 0.35686275, g: 1, b: 0.78823537, a: 0.015686275}
+      key2: {r: 0, g: 0, b: 0, a: 0}
+      key3: {r: 0, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
+      ctime0: 0
+      ctime1: 65535
+      ctime2: 0
+      ctime3: 0
+      ctime4: 0
+      ctime5: 0
+      ctime6: 0
+      ctime7: 0
+      atime0: 0
+      atime1: 65342
+      atime2: 65150
+      atime3: 0
+      atime4: 0
+      atime5: 0
+      atime6: 0
+      atime7: 0
+      m_Mode: 0
+      m_NumColorKeys: 2
+      m_NumAlphaKeys: 2
+  heightDistanceBlend:
+    m_OverrideState: 1
+    m_Value: 0.525
+--- !u!114 &1150107693951557605
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fb4fed6c872d8e4ebf776555fc2acec, type: 3}
+  m_Name: MyBlur
+  m_EditorClassIdentifier: 
+  active: 0
+  blurType:
+    m_OverrideState: 1
+    m_Value: 7
+  filterMode:
+    m_OverrideState: 1
+    m_Value: 1
+  downSample:
+    m_OverrideState: 1
+    m_Value: 2
+  iterations:
+    m_OverrideState: 1
+    m_Value: 4
+  blurSpread:
+    m_OverrideState: 1
+    m_Value: 0.44
+  blurRadius:
+    m_OverrideState: 1
+    m_Value: 0.43
+  area:
+    m_OverrideState: 1
+    m_Value: 2.07
+  spread:
+    m_OverrideState: 1
+    m_Value: 2.55
+  offset:
+    m_OverrideState: 1
+    m_Value: 0
+  radialCenter:
+    m_OverrideState: 1
+    m_Value: {x: 0.83, y: 0.42}
+  angle:
+    m_OverrideState: 1
+    m_Value: 360
+  ShaderPath: Custom/Postprocess/BlurTest
+--- !u!114 &1500467973533902112
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97c23e3b12dc18c42a140437e53d3951, type: 3}
+  m_Name: Tonemapping
+  m_EditorClassIdentifier: 
+  active: 1
+  mode:
+    m_OverrideState: 1
+    m_Value: 2
+--- !u!114 &4917436408881462284
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b2db86121404754db890f4c8dfe81b2, type: 3}
+  m_Name: Bloom
+  m_EditorClassIdentifier: 
+  active: 1
+  threshold:
+    m_OverrideState: 1
+    m_Value: 0.9
+  intensity:
+    m_OverrideState: 1
+    m_Value: 3
+  scatter:
+    m_OverrideState: 0
+    m_Value: 0.7
+  clamp:
+    m_OverrideState: 0
+    m_Value: 65472
+  tint:
+    m_OverrideState: 0
+    m_Value: {r: 1, g: 1, b: 1, a: 1}
+  highQualityFiltering:
+    m_OverrideState: 0
+    m_Value: 0
+  skipIterations:
+    m_OverrideState: 0
+    m_Value: 1
+  dirtTexture:
+    m_OverrideState: 0
+    m_Value: {fileID: 0}
+  dirtIntensity:
+    m_OverrideState: 0
+    m_Value: 0
