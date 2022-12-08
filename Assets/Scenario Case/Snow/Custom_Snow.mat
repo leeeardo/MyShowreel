@@ -1,0 +1,90 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Custom_Snow
+  m_Shader: {fileID: 4800000, guid: dc944508e706d0b4bb9cd6cf400a10aa, type: 3}
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BaseMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DisplacementNoise:
+        m_Texture: {fileID: 2800000, guid: f3a1f84b44733e44e9e06b47e364540b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 0e67b13f7d8ec2c49a751884634c7309, type: 3}
+        m_Scale: {x: 2, y: 2}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Noise:
+        m_Texture: {fileID: 2800000, guid: b564ef71400a25f48a92b590802a9b99, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalTex:
+        m_Texture: {fileID: 2800000, guid: e7b31c63120fc5b47a93116d18c9fa7e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionTex:
+        m_Texture: {fileID: 2800000, guid: e8c380fc9076377418a106907153af6a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _RoughnessTex:
+        m_Texture: {fileID: 2800000, guid: 7d21666ecec3f5e4ea38a326a112594a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SparkleNoise:
+        m_Texture: {fileID: 2800000, guid: 5dab23faf75705c4a906c9fa48b0832d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TraceHoleRamp:
+        m_Texture: {fileID: 2800000, guid: afdca8ab110eeea40a03326ca3825f80, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _AlphaTestToggle: 0
+    - _BumpScale: 0.5
+    - _Cutoff: 0.5
+    - _MaxTessDistance: 24.4
+    - _NoiseScale: 0.139
+    - _NoiseWeight: 0.168
+    - _OcclusionStrength: 0
+    - _PathBlending: 0.64
+    - _RimPower: 5.99
+    - _SnowDepth: 1.7
+    - _SnowHeight: 0.388
+    - _SnowTextureOpacity: 0.34
+    - _SnowTextureScale: 0.11
+    - _SparkCutoff: 0.36
+    - _SparkleScale: 1.46
+    - _StepThreshold: 0.372
+    - _Tess: 23.6
+    m_Colors:
+    - _BaseColor: {r: 0, g: 0.65999997, b: 0.73, a: 1}
+    - _Color: {r: 0.6415094, g: 0.6415094, b: 0.6415094, a: 1}
+    - _PathColorIn: {r: 0.4528302, g: 0.2880317, b: 0.24136703, a: 1}
+    - _PathColorOut: {r: 0.26415092, g: 0.11161306, b: 0, a: 1}
+    - _PathColorTint: {r: 0.3301887, g: 0.32408333, b: 0.31928623, a: 1}
+    - _RimColor: {r: 1, g: 1, b: 1, a: 1}
+    - _ShadowColor: {r: 0.7688679, g: 1, b: 0.9953783, a: 1}
+  m_BuildTextureStacks: []

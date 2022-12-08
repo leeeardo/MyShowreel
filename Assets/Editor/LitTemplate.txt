@@ -1,7 +1,7 @@
 Shader "Custom/URPLitTemplate" {
 	Properties {
-		_BaseMap ("Example Texture", 2D) = "white" {}
-		_BaseColor ("Example Colour", Color) = (0, 0.66, 0.73, 1)
+		_MainTex ("Main Texture", 2D) = "white" {}
+		_BaseColor ("Color", Color) = (0, 0.66, 0.73, 1)
 		[Toggle(_ALPHATEST_ON)] _AlphaTestToggle ("Alpha Clipping", Float) = 0
 		_Cutoff ("Alpha Cutoff", Float) = 0.5
 	}
@@ -84,8 +84,8 @@ Shader "Custom/URPLitTemplate" {
 			};
 
 			// Textures, Samplers & Global Properties
-			TEXTURE2D(_BaseMap);
-			SAMPLER(sampler_BaseMap);
+			TEXTURE2D(_MainTex);
+			SAMPLER(sampler_MainTex);
 
 			// Vertex Shader
 			Varyings LitPassVertex(Attributes Input) {
@@ -108,7 +108,7 @@ Shader "Custom/URPLitTemplate" {
 
 			// Fragment Shader
 			half4 LitPassFragment(Varyings Input) : SV_Target {
-				half4 baseMap = SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, Input.uv);
+				half4 baseMap = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, Input.uv);
 
 				#ifdef _ALPHATEST_ON
 					// Alpha Clipping

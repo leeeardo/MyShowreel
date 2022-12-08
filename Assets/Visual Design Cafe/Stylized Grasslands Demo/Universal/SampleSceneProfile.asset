@@ -27,7 +27,7 @@ MonoBehaviour:
     m_Value: 0
   saturation:
     m_OverrideState: 1
-    m_Value: 5
+    m_Value: 11
 --- !u!114 &-7893295128165547882
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -43,7 +43,7 @@ MonoBehaviour:
   active: 1
   threshold:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 0.82
   intensity:
     m_OverrideState: 1
     m_Value: 1
@@ -96,6 +96,108 @@ MonoBehaviour:
   rounded:
     m_OverrideState: 0
     m_Value: 0
+--- !u!114 &-2216439074485837000
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b85e086ae284ff4ab1a464fa6b30a37, type: 3}
+  m_Name: Fog
+  m_EditorClassIdentifier: 
+  active: 1
+  activeHeightFog:
+    m_OverrideState: 1
+    m_Value: 1
+  fogStartHeight:
+    m_OverrideState: 1
+    m_Value: -47.2
+  fogEndHeight:
+    m_OverrideState: 1
+    m_Value: 1343.2
+  heightFogIntensity:
+    m_OverrideState: 1
+    m_Value: 0.5
+  heightGradient:
+    m_OverrideState: 1
+    m_Value:
+      serializedVersion: 2
+      key0: {r: 0, g: 0.4056604, b: 0.33713245, a: 1}
+      key1: {r: 1, g: 1, b: 1, a: 1}
+      key2: {r: 0, g: 0, b: 0, a: 0}
+      key3: {r: 0, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
+      ctime0: 0
+      ctime1: 65535
+      ctime2: 0
+      ctime3: 0
+      ctime4: 0
+      ctime5: 0
+      ctime6: 0
+      ctime7: 0
+      atime0: 0
+      atime1: 65535
+      atime2: 0
+      atime3: 0
+      atime4: 0
+      atime5: 0
+      atime6: 0
+      atime7: 0
+      m_Mode: 0
+      m_NumColorKeys: 2
+      m_NumAlphaKeys: 2
+  activeDistanceFog:
+    m_OverrideState: 1
+    m_Value: 1
+  fogNear:
+    m_OverrideState: 1
+    m_Value: 0
+  fogFar:
+    m_OverrideState: 1
+    m_Value: 268.37
+  distanceFogIntensity:
+    m_OverrideState: 1
+    m_Value: 0.5
+  distanceGradient:
+    m_OverrideState: 1
+    m_Value:
+      serializedVersion: 2
+      key0: {r: 0.024964403, g: 0.4811321, b: 0.4674524, a: 1}
+      key1: {r: 1, g: 1, b: 1, a: 1}
+      key2: {r: 0, g: 0, b: 0, a: 0}
+      key3: {r: 0, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
+      ctime0: 0
+      ctime1: 65535
+      ctime2: 0
+      ctime3: 0
+      ctime4: 0
+      ctime5: 0
+      ctime6: 0
+      ctime7: 0
+      atime0: 0
+      atime1: 65535
+      atime2: 0
+      atime3: 0
+      atime4: 0
+      atime5: 0
+      atime6: 0
+      atime7: 0
+      m_Mode: 0
+      m_NumColorKeys: 2
+      m_NumAlphaKeys: 2
+  heightDistanceBlend:
+    m_OverrideState: 1
+    m_Value: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113,6 +215,9 @@ MonoBehaviour:
   - {fileID: -7893295128165547882}
   - {fileID: -7011558710299706105}
   - {fileID: -8172635213521241825}
+  - {fileID: -2216439074485837000}
+  - {fileID: 3535204518833862206}
+  - {fileID: 3989113667515123586}
 --- !u!114 &849379129802519247
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -129,3 +234,96 @@ MonoBehaviour:
   mode:
     m_OverrideState: 1
     m_Value: 2
+--- !u!114 &3535204518833862206
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fb4fed6c872d8e4ebf776555fc2acec, type: 3}
+  m_Name: MyBlur
+  m_EditorClassIdentifier: 
+  active: 1
+  blurType:
+    m_OverrideState: 1
+    m_Value: 6
+  filterMode:
+    m_OverrideState: 1
+    m_Value: 1
+  downSample:
+    m_OverrideState: 1
+    m_Value: 1
+  iterations:
+    m_OverrideState: 1
+    m_Value: 10
+  blurSpread:
+    m_OverrideState: 1
+    m_Value: 1.2
+  blurRadius:
+    m_OverrideState: 1
+    m_Value: 1.41
+  area:
+    m_OverrideState: 1
+    m_Value: 1.17
+  spread:
+    m_OverrideState: 1
+    m_Value: 4.69
+  offset:
+    m_OverrideState: 1
+    m_Value: -0.264
+  radialCenter:
+    m_OverrideState: 1
+    m_Value: {x: 0, y: 0}
+  angle:
+    m_OverrideState: 1
+    m_Value: 0
+  ShaderPath: Custom/Postprocess/BlurTest
+--- !u!114 &3989113667515123586
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c01700fd266d6914ababb731e09af2eb, type: 3}
+  m_Name: DepthOfField
+  m_EditorClassIdentifier: 
+  active: 0
+  mode:
+    m_OverrideState: 1
+    m_Value: 2
+  gaussianStart:
+    m_OverrideState: 1
+    m_Value: 10
+  gaussianEnd:
+    m_OverrideState: 1
+    m_Value: 30
+  gaussianMaxRadius:
+    m_OverrideState: 1
+    m_Value: 1
+  highQualitySampling:
+    m_OverrideState: 1
+    m_Value: 0
+  focusDistance:
+    m_OverrideState: 1
+    m_Value: 4.79
+  aperture:
+    m_OverrideState: 1
+    m_Value: 1.2
+  focalLength:
+    m_OverrideState: 1
+    m_Value: 38
+  bladeCount:
+    m_OverrideState: 1
+    m_Value: 5
+  bladeCurvature:
+    m_OverrideState: 1
+    m_Value: 1
+  bladeRotation:
+    m_OverrideState: 1
+    m_Value: 0
