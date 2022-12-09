@@ -74,7 +74,7 @@
             float4 _Color, _RimColor;
             float _RimPower;
             float4 _PathColorTint, _PathColorOut;
-            float _PathBlending;
+            float _PathColorBlending;
             float _SparkleScale, _SparkCutoff;
             float _SnowTextureOpacity, _SnowTextureScale;
             float4 _ShadowColor;

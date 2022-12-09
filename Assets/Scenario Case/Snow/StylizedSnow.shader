@@ -2,9 +2,10 @@
     Properties{
         [Header(Main)]
     	_MainTex("Snow Texture", 2D) = "white" {}
-    	
-
-    	_StepThreshold("Threshold",range(0,1)) = 1
+    	[HDR]_Color("Snow Color", Color) = (0.5,0.5,0.5,1)
+    	_SnowTextureOpacity("Snow Texture Opacity", Range(0,2)) = 0.3
+		[HDR]_ShadowColor("Shadow Color", Color) = (0.5,0.5,0.5,1)
+    	//_PathBlend("Threshold",range(0,1)) = 1
     	    	
         _DisplacementNoise("Snow Displacement Noise", 2D) = "gray" {}
         _NoiseScale("Displacement Scale", Range(0,2)) = 0.1
@@ -16,25 +17,23 @@
         _Tess("Tessellation", Range(1,32)) = 20
         
         [Header(Snow)]
-        //[HDR]_Color("Snow Color", Color) = (0.5,0.5,0.5,1)
-        [HDR]_PathColorTint("Snow Path Color In", Color) = (0.5,0.5,0.7,1)
-        //[HDR]_PathColorOut("Snow Path Color Out", Color) = (0.5,0.5,0.7,1)
-        //_PathBlending("Snow Path Blending", Range(0,3)) = 0.3
+        [HDR]_PathColorIn("Snow Path Color In", Color) = (0.5,0.5,0.7,1)
+        [HDR]_PathColorOut("Snow Path Color Out", Color) = (0.5,0.5,0.7,1)
+    	_PathBlending("Path Blending", Range(0,1)) = 1
+        _PathColorBlending("Snow Color Path Blending", Range(0,3)) = 0.3
         _SnowHeight("Snow Height", Range(0,2)) = 0.3
         _SnowDepth("Snow Path Depth", Range(0,100)) = 0.3
-        //_SnowTextureOpacity("Snow Texture Opacity", Range(0,2)) = 0.3
-        //_SnowTextureScale("Snow Texture Scale", Range(0,2)) = 0.3
  
-//        [Space]
-//        [Header(Sparkles)]
-//        _SparkleScale("Sparkle Scale", Range(0,10)) = 10
-//        _SparkCutoff("Sparkle Cutoff", Range(0,10)) = 0.8
-//        _SparkleNoise("Sparkle Noise", 2D) = "gray" {}
+        [Space]
+        [Header(Sparkles)]
+        _SparkleScale("Sparkle Scale", Range(0,10)) = 10
+        _SparkCutoff("Sparkle Cutoff", Range(0,10)) = 0.8
+        _SparkleNoise("Sparkle Noise", 2D) = "gray" {}
  
-//        [Space]
-//        [Header(Rim)]
-//        _RimPower("Rim Power", Range(0,20)) = 20
-//        [HDR]_RimColor("Rim Color Snow", Color) = (0.5,0.5,0.5,1)
+        [Space]
+        [Header(Rim)]
+        _RimPower("Rim Power", Range(0,20)) = 20
+        [HDR]_RimColor("Rim Color Snow", Color) = (0.5,0.5,0.5,1)
     }
     HLSLINCLUDE
  
@@ -69,8 +68,8 @@
             
             float4 _Color, _RimColor;
             float _RimPower;
-            float4 _PathColorTint, _PathColorOut;
-            float _PathBlending;
+            float4 _PathColorIn, _PathColorOut;
+            float _PathColorBlending;
             float _SparkleScale, _SparkCutoff;
             float _SnowTextureOpacity, _SnowTextureScale;
             float4 _ShadowColor;
@@ -99,10 +98,10 @@
 
             TEXTURE2D(_TraceHoleRamp);
             SAMPLER(sampler_TraceHoleRamp);
-
+			TEXTURE2D(_SparkleNoise);
+            SAMPLER(sampler_SparkleNoise);
             float _OcclusionStrength,_BumpScale;
-     
-
+ 
             
             half4 SnowFrag(Varyings input) : SV_Target{
 
@@ -113,29 +112,25 @@
                 float effectRT = SAMPLE_TEXTURE2D(_GlobalEffectRT,sampler_GlobalEffectRT,rtUV).g;
                  effectRT *=  smoothstep(0.99, 0.9, rtUV.x) * smoothstep(0.99, 0.9,1- rtUV.x);
                  effectRT *=  smoothstep(0.99, 0.9, rtUV.y) * smoothstep(0.99, 0.9,1- rtUV.y);
-            	float traceMask = saturate(smoothstep(0.0,_StepThreshold,effectRT));
+            	float traceMask = saturate(smoothstep(0.0,_PathBlending,effectRT));
 
                 //float snowNoise = SAMPLE_TEXTURE2D_LOD(_Noise,sampler_Noise,worldPos.xz*_NoiseScale,0).r;
 
-            	//albedo
+
             	half4 baseMap = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, input.uv);
-            	
+            	float3 baseColor = lerp(_Color.rgb,baseMap.rgb,_SnowTextureOpacity);
+            	float3 path = lerp(_PathColorIn.rgb,_PathColorOut.rgb,saturate(traceMask*_PathColorBlending));
+				//float3 path = traceMask*_PathColorIn.rgb;
+            	float3 mainColor = lerp(baseColor,path,saturate(traceMask*_PathColorBlending));
             	
 				// Get Baked GI
-				half3 bakedGI = SAMPLE_GI(Input.lightmapUV, input.vertexSH, input.normalWS);
+				//half3 bakedGI = SAMPLE_GI(input.lightmapUV, input.vertexSH, input.normalWS);
 				
 				// Main Light & Shadows
 				float4 shadowCoord = TransformWorldToShadowCoord(input.positionWS.xyz);
 				Light mainLight = GetMainLight(shadowCoord);
-				half3 attenuatedLightColor = mainLight.color * (mainLight.distanceAttenuation * mainLight.shadowAttenuation);
-
-				// Mix Realtime & Baked (if LIGHTMAP_SHADOW_MIXING / _MIXED_LIGHTING_SUBTRACTIVE is enabled)
-				MixRealtimeAndBakedGI(mainLight, input.normalWS, bakedGI);
-
-				// Diffuse
-				half3 shading = bakedGI + LightingLambert(attenuatedLightColor, mainLight.direction, input.normalWS);
-				half4 notMaskColor = baseMap*(1-effectRT);
-
+				half3 mainShadowMask = mainLight.color * (mainLight.distanceAttenuation * mainLight.shadowAttenuation);
+				float3 coloredShadow =  _ShadowColor.rgb*(1-mainShadowMask);
 				
 
             	//extraLight
@@ -144,14 +139,127 @@
             	for (int j=0;j<pixelLightCount;j++)
             	{
             		Light light = GetAdditionalLight(j,input.positionWS,float4(1,1,1,1));
-            		float3 attenuatedLightColor = light.color*(light.distanceAttenuation*light.shadowAttenuation);
-            		extraLight += attenuatedLightColor;
+            		float3 attenuated = light.color*(light.distanceAttenuation*light.shadowAttenuation);
+            		extraLight += attenuated;
             	}
             	extraLight*=baseMap.rgb;
-				return float4(extraLight,1);
+
+            	//sparkle
+            	float sparklesStatic = SAMPLE_TEXTURE2D(_SparkleNoise, sampler_SparkleNoise,input.positionWS.xz * _SparkleScale).r;
+                float cutoffSparkles = step(_SparkCutoff,sparklesStatic);				
+                mainColor += cutoffSparkles  *saturate(1- (traceMask ))*9;
+            	//rimlight
+            	 // add rim light
+            	float3 viewDir = normalize(worldPos-GetCameraPositionWS());
+            	float SnowNoise = SAMPLE_TEXTURE2D(_DisplacementNoise,sampler_DisplacementNoise,worldPos.xz*_NoiseScale).r;
+
+                half rim = 1.0 - dot(viewDir,input.normalWS )* SnowNoise.r;
+                mainColor += _RimColor.rgb * pow(abs(rim), _RimPower);
+            	
+            	float3 finalColor = (mainColor+extraLight)*mainShadowMask+coloredShadow;
+				return float4(finalColor,1);//float4((mainColor+extraLight)*mainShadowMask,1);
             }
             ENDHLSL
- 
+        }
+        // Shadow Casting Pass
+        Pass
+        {
+            Name "ShadowCaster"
+            Tags{"LightMode" = "ShadowCaster"}
+
+            ZWrite On
+            ZTest LEqual
+            ColorMask 0
+            Cull[_Cull]
+
+            HLSLPROGRAM
+            #pragma only_renderers gles gles3 glcore d3d11
+            #pragma target 2.0
+
+            //--------------------------------------
+            // GPU Instancing
+            #pragma multi_compile_instancing
+
+            // -------------------------------------
+            // Material Keywords
+            #pragma shader_feature_local_fragment _ALPHATEST_ON
+            #pragma shader_feature_local_fragment _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
+
+            // -------------------------------------
+            // Universal Pipeline keywords
+
+            // This is used during shadow map generation to differentiate between directional and punctual light shadows, as they use different formulas to apply Normal Bias
+            #pragma multi_compile_vertex _ _CASTING_PUNCTUAL_LIGHT_SHADOW
+
+            #pragma vertex ShadowPassVertex
+            #pragma fragment ShadowPassFragment
+
+            #include "Packages/com.unity.render-pipelines.universal/Shaders/LitInput.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/Shaders/ShadowCasterPass.hlsl"
+            ENDHLSL
+        }
+
+        Pass
+        {
+            Name "DepthOnly"
+            Tags{"LightMode" = "DepthOnly"}
+
+            ZWrite On
+            ColorMask 0
+            Cull[_Cull]
+
+            HLSLPROGRAM
+            #pragma only_renderers gles gles3 glcore d3d11
+            #pragma target 2.0
+
+            //--------------------------------------
+            // GPU Instancing
+            #pragma multi_compile_instancing
+
+            #pragma vertex DepthOnlyVertex
+            #pragma fragment DepthOnlyFragment
+
+            // -------------------------------------
+            // Material Keywords
+            #pragma shader_feature_local_fragment _ALPHATEST_ON
+            #pragma shader_feature_local_fragment _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
+
+            #include "Packages/com.unity.render-pipelines.universal/Shaders/LitInput.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/Shaders/DepthOnlyPass.hlsl"
+            ENDHLSL
+        }
+
+        // This pass is used when drawing to a _CameraNormalsTexture texture
+        Pass
+        {
+            Name "DepthNormals"
+            Tags{"LightMode" = "DepthNormals"}
+
+            ZWrite On
+            Cull[_Cull]
+
+            HLSLPROGRAM
+            #pragma only_renderers gles gles3 glcore d3d11
+            #pragma target 2.0
+
+            #pragma vertex DepthNormalsVertex
+            #pragma fragment DepthNormalsFragment
+
+            // -------------------------------------
+            // Material Keywords
+            #pragma shader_feature_local _NORMALMAP
+            #pragma shader_feature_local _PARALLAXMAP
+            #pragma shader_feature_local _ _DETAIL_MULX2 _DETAIL_SCALED
+            #pragma shader_feature_local_fragment _ALPHATEST_ON
+            #pragma shader_feature_local_fragment _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
+
+            //--------------------------------------
+            // GPU Instancing
+            #pragma multi_compile_instancing
+
+            #include "Packages/com.unity.render-pipelines.universal/Shaders/LitInput.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/Shaders/LitDepthNormalsPass.hlsl"
+            ENDHLSL
         }
 
     }

@@ -102,7 +102,7 @@ TEXTURE2D(_GlobalEffectRT);
 SAMPLER(sampler_GlobalEffectRT);
 TEXTURE2D(_DisplacementNoise);
 SAMPLER(sampler_DisplacementNoise);
-
+float _PathBlending;
 float _SnowHeight,_NoiseWeight,_SnowDepth;
 float test,_StepThreshold;
 Varyings vert(Attributes input)
@@ -116,15 +116,16 @@ Varyings vert(Attributes input)
     rtUV +=0.5;
     //获取rt
     float4 effectRT = SAMPLE_TEXTURE2D_LOD(_GlobalEffectRT,sampler_GlobalEffectRT,rtUV,0);
-    effectRT = saturate(smoothstep(0.0,_StepThreshold,effectRT));
+    //effectRT = saturate(smoothstep(0.0,_StepThreshold,effectRT));
     
     //smoothstep防出血？
     // mask to prevent bleeding
     effectRT *=  smoothstep(0.99, 0.9, rtUV.x) * smoothstep(0.99, 0.9,1- rtUV.x);
     effectRT *=  smoothstep(0.99, 0.9, rtUV.y) * smoothstep(0.99, 0.9,1- rtUV.y);
+    float traceMask = saturate(smoothstep(0.0,_PathBlending,effectRT.g));
     float SnowNoise = SAMPLE_TEXTURE2D_LOD(_DisplacementNoise,sampler_DisplacementNoise,worldPos.xz*_NoiseScale,0).r;
     input.positionOS.xyz += SafeNormalize(
-    input.normalOS)*saturate((_SnowHeight+SnowNoise*_NoiseWeight))*saturate(1-effectRT.g*_SnowDepth);
+    input.normalOS)*saturate((_SnowHeight+SnowNoise*_NoiseWeight))*saturate(1-traceMask*_SnowDepth);
     
     VertexNormalInputs normalInput = GetVertexNormalInputs(input.normalOS,input.tangentOS);
 

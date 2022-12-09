@@ -125,7 +125,7 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value:
       serializedVersion: 2
-      key0: {r: 0, g: 0.4056604, b: 0.33713245, a: 1}
+      key0: {r: 0, g: 0, b: 0, a: 1}
       key1: {r: 1, g: 1, b: 1, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
@@ -157,19 +157,19 @@ MonoBehaviour:
     m_Value: 1
   fogNear:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: -230
   fogFar:
     m_OverrideState: 1
-    m_Value: 268.37
+    m_Value: 372.7
   distanceFogIntensity:
     m_OverrideState: 1
-    m_Value: 0.5
+    m_Value: 0.96
   distanceGradient:
     m_OverrideState: 1
     m_Value:
       serializedVersion: 2
-      key0: {r: 0.024964403, g: 0.4811321, b: 0.4674524, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 0.0124154445, g: 0.1344739, b: 0.2924528, a: 1}
+      key1: {r: 0.005384479, g: 0.05457904, b: 0.103773594, a: 0.7058824}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}

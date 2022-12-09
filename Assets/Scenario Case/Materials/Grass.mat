@@ -101,7 +101,7 @@ Material:
     - _BumpScale: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
-    - _ColorNoiseStrength: 0.205
+    - _ColorNoiseStrength: 0.134
     - _Cull: 2
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
@@ -121,7 +121,7 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Surface: 0
-    - _WindSpeed: 0.51
+    - _WindSpeed: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
