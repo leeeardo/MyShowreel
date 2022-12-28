@@ -126,8 +126,8 @@
 				noiseUV+=float2(sin(1*_Time.y+positionInputs.positionWS.z),sin(1*_Time.y+positionInputs.positionWS.x));
 				noiseUV*=_WindSpeed;
 				float3 noise = SAMPLE_TEXTURE2D_LOD(_NoiseMap,sampler_NoiseMap,0.1*noiseUV,0)*Input.color;
-				noise *=0.01;
-				//newPos+= noise;
+				noise *=0.1;
+				newPos+= noise;
 				Output.positionCS = TransformObjectToHClip(newPos);
 				
 				VertexNormalInputs normalInputs = GetVertexNormalInputs(Input.normalOS.xyz);

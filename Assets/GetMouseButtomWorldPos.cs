@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 
 public class GetMouseButtomWorldPos : MonoBehaviour
@@ -29,9 +30,9 @@ public class GetMouseButtomWorldPos : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Mouse.current.leftButton.isPressed)
         {
-            Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
+            Ray ray = _camera.ScreenPointToRay(Mouse.current.position.ReadValue());
             RaycastHit hit;
             bool isCollider = Physics.Raycast(ray, out hit);
 
@@ -39,7 +40,7 @@ public class GetMouseButtomWorldPos : MonoBehaviour
             Vector3 hitPos = hit.point;
             Shader.SetGlobalVector("_HitPos",hitPos);
         }
-        if (Input.GetMouseButtonDown(0))
+        if (Mouse.current.leftButton.isPressed)
         {
             scanTimer = 0;
             isScaning = true;

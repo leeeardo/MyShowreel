@@ -50,14 +50,7 @@ public class Fog : CustomVolumeComponent
         //SetTexture(out heightTex);
         //SetTexture(out distanceTex);
     }
-
-    void SetTexture(out Texture2D tex)
-    {
-        tex = new Texture2D(256, 1, TextureFormat.ARGB32, false, true);
-        tex.filterMode = FilterMode.Bilinear;
-        tex.wrapMode = TextureWrapMode.Clamp;
-        tex.anisoLevel = 1;
-    }
+    
 
     Texture2D applyGradient(Gradient ramp)
     {
@@ -101,17 +94,6 @@ public class Fog : CustomVolumeComponent
             _material.SetFloat("_FogNear",fogNear.value);
             _material.SetFloat("_DistanceFogIntensity",distanceFogIntensity.value);
             
-            //GetGradient
-            // Color[] colors = new Color[256];
-            // float div = 256.0f;
-            // for (int i = 0; i < 256; ++i)
-            // {
-            //     float t = (float)i / div;
-            //     colors[i] = distanceGradient.value.Evaluate(t);
-            // }
-            // distanceTex.SetPixels(colors);
-            // distanceTex.Apply();
-            
             distanceTex = applyGradient(distanceGradient.value);
             
             _material.SetTexture("_DistanceGradient" , distanceTex);
@@ -127,16 +109,6 @@ public class Fog : CustomVolumeComponent
             _material.SetFloat("_FogStartHeight",fogStartHeight.value);
             _material.SetFloat("_HeightFogIntensity",heightFogIntensity.value);
             
-            //GetGradient
-            // Color[] colors = new Color[256];
-            // float div = 256.0f;
-            // for (int i = 0; i < 256; ++i)
-            // {
-            //     float t = (float)i / div;
-            //     colors[i] = heightGradient.value.Evaluate(t);
-            // }
-            // heightTex.SetPixels(colors);
-            // heightTex.Apply();
 
             heightTex = applyGradient(heightGradient.value);
             

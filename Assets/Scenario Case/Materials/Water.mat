@@ -112,20 +112,20 @@ Material:
     - _Blend: 0
     - _BumpScale: 1
     - _CausticsDistort: 0.05
-    - _CauticsRange: 13.9
+    - _CauticsRange: 11.8
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _Cull: 2
     - _CutOff: 1
     - _Cutoff: 0.5
-    - _DepthDistance: 0.141
+    - _DepthDistance: 0.12
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DetailNormalStrength: 1
     - _DstBlend: 0
     - _EnvironmentReflections: 1
-    - _FoamAmount: 257.59
-    - _FoamCutoff: 76.3
+    - _FoamAmount: 187.1
+    - _FoamCutoff: 56.3
     - _FoamScale: -0.62
     - _FoamSpeed: 0.01
     - _GlossMapScale: 0
@@ -139,10 +139,10 @@ Material:
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _ReflectStrength: 0.36
-    - _RefractionStrength: 2
+    - _RefractionStrength: 6.59
     - _ShadowStrength: 0.283
-    - _SmallFoamAmount: 1.84
-    - _SmallFoamCutoff: 0.075
+    - _SmallFoamAmount: 2.33
+    - _SmallFoamCutoff: 0.788
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -155,8 +155,8 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _CausticsSpeed: {r: -0.05, g: -0.05, b: 0, a: 0}
-    - _CausticsTint: {r: 8, g: 8, b: 8, a: 1}
+    - _CausticsSpeed: {r: 0.05, g: 0.1, b: 0, a: 0}
+    - _CausticsTint: {r: 4.030425, g: 4.030425, b: 4.030425, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FoamColor: {r: 0.9153963, g: 0.9528302, b: 0.8314792, a: 1}

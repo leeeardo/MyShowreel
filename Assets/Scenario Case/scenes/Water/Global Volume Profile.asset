@@ -15,10 +15,10 @@ MonoBehaviour:
   active: 1
   effectTimeSpan:
     m_OverrideState: 1
-    m_Value: 5
+    m_Value: 6.39
   fadeOutTime:
     m_OverrideState: 1
-    m_Value: 3.5
+    m_Value: 5.56
   scanSpeed:
     m_OverrideState: 1
     m_Value: 35
@@ -149,13 +149,13 @@ MonoBehaviour:
     m_Value: 1
   fogStartHeight:
     m_OverrideState: 1
-    m_Value: -138.8
+    m_Value: -7.4
   fogEndHeight:
     m_OverrideState: 1
-    m_Value: 339.6
+    m_Value: 345.81
   heightFogIntensity:
     m_OverrideState: 1
-    m_Value: 4.05
+    m_Value: 2.19
   heightGradient:
     m_OverrideState: 1
     m_Value:
@@ -192,19 +192,19 @@ MonoBehaviour:
     m_Value: 1
   fogNear:
     m_OverrideState: 1
-    m_Value: -91.5
+    m_Value: -51
   fogFar:
     m_OverrideState: 1
-    m_Value: 284.4
+    m_Value: 200
   distanceFogIntensity:
     m_OverrideState: 1
-    m_Value: 3.69
+    m_Value: 2.8
   distanceGradient:
     m_OverrideState: 1
     m_Value:
       serializedVersion: 2
       key0: {r: 0.050980397, g: 0.41176474, b: 0.45882356, a: 1}
-      key1: {r: 0.35686275, g: 1, b: 0.78823537, a: 0.015686275}
+      key1: {r: 0.35686275, g: 1, b: 0.78823537, a: 0.050980393}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -232,7 +232,7 @@ MonoBehaviour:
       m_NumAlphaKeys: 2
   heightDistanceBlend:
     m_OverrideState: 1
-    m_Value: 0.525
+    m_Value: 1
 --- !u!114 &1150107693951557605
 MonoBehaviour:
   m_ObjectHideFlags: 3

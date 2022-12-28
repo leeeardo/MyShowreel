@@ -88,7 +88,7 @@ Shader "Customs/EnergySphere(NoDoneYet)"
                 VertexPositionInputs input = (VertexPositionInputs)0;
                 input = GetVertexPositionInputs(v.positionOS);
                 o.positionCS = input.positionCS;
-                o.uv = TRANSFORM_TEX(v.uv,_MainTex);
+                o.uv = v.uv;
                 o.positionWS = input.positionWS;
                 o.positionSS = input.positionNDC;
                 o.normalWS = TransformObjectToWorldNormal(v.normalOS);
@@ -134,7 +134,7 @@ Shader "Customs/EnergySphere(NoDoneYet)"
                 float fresnel = pow(1-NdotV,_FresnelStrenght);
                 //fresnel = fresnel >1 ? 0:fresnel;
                 
-                //FlowÉ¨¹â
+                //FlowÉ¨ï¿½ï¿½
                 float upMove = abs(frac(i.positionWS.y-_Time.y*_UpMoveSpeed)-0.5);
                 upMove = smoothstep(_UpMoveLeft,_UpMoveRight,upMove);
                 
@@ -166,7 +166,7 @@ Shader "Customs/EnergySphere(NoDoneYet)"
                 VertexPositionInputs input = (VertexPositionInputs)0;
                 input = GetVertexPositionInputs(v.positionOS);
                 o.positionCS = input.positionCS;
-                o.uv = TRANSFORM_TEX(v.uv,_MainTex);
+                o.uv =v.uv;
                 o.positionWS = input.positionWS;
                 o.positionSS = input.positionNDC;
                 o.normalWS = TransformObjectToWorldNormal(v.normalOS);
@@ -212,7 +212,7 @@ Shader "Customs/EnergySphere(NoDoneYet)"
                 float fresnel = pow(1-NdotV,_FresnelStrenght);
                 //fresnel = fresnel >1 ? 0:fresnel;
                 
-                //FlowÉ¨¹â
+                //FlowÉ¨ï¿½ï¿½
                 float upMove = abs(frac(i.positionWS.y-_Time.y*_UpMoveSpeed)-0.5);
                 upMove = smoothstep(_UpMoveLeft,_UpMoveRight,upMove);
                 

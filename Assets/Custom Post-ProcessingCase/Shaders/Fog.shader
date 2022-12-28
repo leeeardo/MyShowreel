@@ -67,7 +67,7 @@ Shader "Custom/Postprocess/Fog"
 
             float depthAbsolute = _ProjectionParams.y+(_ProjectionParams.z-_ProjectionParams.y)*depth01;
             
-            float distanceFogDensity = saturate((depthAbsolute-_FogNear)/(_FogFar-_FogNear));
+            float distanceFogDensity = saturate((depth-_FogNear)/(_FogFar-_FogNear));
             distanceFogDensity = saturate(pow(distanceFogDensity,_DistanceFogIntensity));
 
             float heightFogDensity = saturate((worldPos.y-_FogStartHeight*1000)/(_FogEndHeight*1000-_FogStartHeight));

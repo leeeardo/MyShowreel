@@ -159,7 +159,7 @@ Shader "Custom/Postprocess/Scan"
                 float scanDepth= _ScanTimer*_ScanSpeed;
                 float scanDistance= distance(worldPos,_HitPos);
                 scanDepth = min(scanDepth,_ScanWidth);
-                float distanceRamp = saturate(scanDistance/scanDepth);
+                float distanceRamp = 1-saturate(scanDepth/scanDistance);
                 _ScanSmoothness = _ScanSmoothness*0.5+0.5;
                 float halfDistanceRamp = smoothstep(1-_ScanSmoothness,_ScanSmoothness,distanceRamp);
                 distanceRamp = smoothstep(0,0.3,halfDistanceRamp*(1-halfDistanceRamp));

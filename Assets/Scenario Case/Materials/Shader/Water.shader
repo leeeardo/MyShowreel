@@ -191,7 +191,10 @@
 				float3 CamPos = GetCameraPositionWS();
 				
 				float3 viewDir = normalize(GetWorldSpaceViewDir(worldPos));
-				float3 ray = viewDir/(dot(viewDir,-1 * mul(UNITY_MATRIX_M, transpose(mul(UNITY_MATRIX_I_M, UNITY_MATRIX_I_V)) [2].xyz)));
+				float3 ray = viewDir/
+					dot(viewDir,-1 * mul(
+						UNITY_MATRIX_M, transpose(
+							mul(UNITY_MATRIX_I_M, UNITY_MATRIX_I_V)) [2].xyz));
 				return CamPos+eyeDepth*ray;
 			}
 
@@ -258,17 +261,19 @@
 				float2 uvOffsetA = Input.uv*_NormalScale.xy+_Time.y*_NormalSpeed;
 				float2 uvOffsetB = Input.uv*_NormalScale.zw-_Time.y*_NormalSpeed;
 				
-				float3 mainNormalMap = UnpackNormalScale(SAMPLE_TEXTURE2D(_NormalMap,sampler_NormalMap,Input.uv+uvOffsetA),_NormalStrength);
+				float3 mainNormalMap = UnpackNormalScale(SAMPLE_TEXTURE2D(
+					_NormalMap,sampler_NormalMap,Input.uv+uvOffsetA),_NormalStrength);
 				float3 normalMain = normalize(mul(mainNormalMap,TBN));
-				float3 detailNormalMap = UnpackNormalScale(SAMPLE_TEXTURE2D(_DetailNormalMap,sampler_DetailNormalMap,Input.uv+uvOffsetB),_DetailNormalStrength);
+				float3 detailNormalMap = UnpackNormalScale(SAMPLE_TEXTURE2D(
+					_DetailNormalMap,sampler_DetailNormalMap,Input.uv+uvOffsetB),_DetailNormalStrength);
 				float3 normalDetail = normalize(mul(detailNormalMap,TBN));
 				float3 normal = BlendNormalWorldspaceRNM(normalMain,normalDetail,normalWS);
 
 				normal = lerp(normal,Input.normalWS,depth);
 
 				//Refraction
-				float3 cameraUV = (Input.positionSS.xyz/Input.positionSS.w);
-				cameraUV.xyz+=_RefractionStrength*0.002*normal;
+				float2 cameraUV = (Input.positionSS.xy/Input.positionSS.w);
+				cameraUV.xy+=_RefractionStrength*0.002*normal;
 				half4 cameraColorTex = SAMPLE_TEXTURE2D(_CameraOpaqueTexture,sampler_CameraOpaqueTexture,cameraUV);
 
 				//Foam
@@ -280,8 +285,8 @@
 				float foam = foamNoiseA*_FoamColor.a*(1-depth);
 				
 				//Foam2
-				float foamBDepth = saturate((depth-Input.positionCS.z)/_SmallFoamAmount*_SmallFoamCutoff);
-				float foamNoiseB = step(foamBDepth,foamNoise);
+				//float foamBDepth = saturate((depth-Input.positionCS.z)/_SmallFoamAmount*_SmallFoamCutoff);
+				float foamNoiseB = step(foamNoise,_SmallFoamCutoff);
 				foam+=1-foamNoiseB;
 				
 				//ReflectionProbe
@@ -328,7 +333,7 @@
 				color.rgb = lerp(color.rgb,_FoamColor.rgb,foam);
 				color.rgb = lerp(color.rgb,sky,saturate(depth+_ReflectStrength*2-1));
 				return float4(color.rgb*shading,1);
-				//return float4(color.rgb*shading,1);
+				//return foamDepth;
 			}
 			ENDHLSL
 		}
