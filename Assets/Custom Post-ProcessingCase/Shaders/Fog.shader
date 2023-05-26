@@ -61,11 +61,11 @@ Shader "Custom/Postprocess/Fog"
         {
             float depthTex = SAMPLE_TEXTURE2D(_CameraDepthTexture,sampler_CameraDepthTexture,input.uv).r;
             float depth = LinearEyeDepth(depthTex,_ZBufferParams);
-            float depth01 = Linear01Depth(depthTex,_ZBufferParams);
+            //float depth01 = Linear01Depth(depthTex,_ZBufferParams);
             float3 worldPos = GetCameraPositionWS()+depth*input.ray;
             float noise = SAMPLE_TEXTURE2D(_NoiseTexture,sampler_NoiseTexture,worldPos.xz);
 
-            float depthAbsolute = _ProjectionParams.y+(_ProjectionParams.z-_ProjectionParams.y)*depth01;
+            //float depthAbsolute = _ProjectionParams.y+(_ProjectionParams.z-_ProjectionParams.y)*depth01;
             
             float distanceFogDensity = saturate((depth-_FogNear)/(_FogFar-_FogNear));
             distanceFogDensity = saturate(pow(distanceFogDensity,_DistanceFogIntensity));

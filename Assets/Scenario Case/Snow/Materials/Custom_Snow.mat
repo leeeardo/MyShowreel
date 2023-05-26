@@ -1,0 +1,140 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Custom_Snow
+  m_Shader: {fileID: 4800000, guid: 024050be2be517a43920f3f5bd1586b2, type: 3}
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BaseMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _CausticsTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DisplacementNoise:
+        m_Texture: {fileID: 2800000, guid: f3a1f84b44733e44e9e06b47e364540b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FoamNoise:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 66c9cf58ed411aa43bdd4ec20fd43451, type: 3}
+        m_Scale: {x: 1, y: 5.33}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Noise:
+        m_Texture: {fileID: 2800000, guid: b564ef71400a25f48a92b590802a9b99, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalTex:
+        m_Texture: {fileID: 2800000, guid: e7b31c63120fc5b47a93116d18c9fa7e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionTex:
+        m_Texture: {fileID: 2800000, guid: e8c380fc9076377418a106907153af6a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _RoughnessTex:
+        m_Texture: {fileID: 2800000, guid: 7d21666ecec3f5e4ea38a326a112594a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SparkleNoise:
+        m_Texture: {fileID: 2800000, guid: 5dab23faf75705c4a906c9fa48b0832d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TraceHoleRamp:
+        m_Texture: {fileID: 2800000, guid: afdca8ab110eeea40a03326ca3825f80, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _AlphaTestToggle: 0
+    - _BumpScale: 0.5
+    - _CausticsDistort: 1
+    - _CauticsRange: 5
+    - _Cutoff: 0.5
+    - _DepthDistance: 1
+    - _DetailNormalStrength: 1
+    - _DistortionIntensity: 1
+    - _DistortionSpeedX: 1
+    - _DistortionSpeedY: 1
+    - _FoamAmount: 1
+    - _FoamCutoff: 1
+    - _FoamScale: 1
+    - _FoamSpeed: 1
+    - _MaxTessDistance: 15.2
+    - _NoiseScale: 0.177
+    - _NoiseWeight: 0.263
+    - _NormalSpeed: 0.05
+    - _NormalStrength: 1
+    - _OcclusionStrength: 0
+    - _PathBlending: 0.078
+    - _PathColorBlending: 1.26
+    - _ReflectStrength: 1
+    - _RefractionStrength: 1
+    - _RimPower: 4.17
+    - _ShadowStrength: 1
+    - _SmallFoamAmount: 1
+    - _SmallFoamCutoff: 1
+    - _SnowDepth: 2.8
+    - _SnowHeight: 0.058
+    - _SnowTextureOpacity: 0.23
+    - _SnowTextureScale: 0.11
+    - _SparkCutoff: 0.45
+    - _SparkleScale: 0.3
+    - _StepThreshold: 0.261
+    - _Tess: 8.7
+    - _WaveAmplitude: 1
+    - _WaveFrequency: 1
+    - _WaveSpeed: 1
+    m_Colors:
+    - _BaseColor: {r: 0, g: 0.65999997, b: 0.73, a: 1}
+    - _BottonColor: {r: 1, g: 1, b: 1, a: 1}
+    - _CausticsSpeed: {r: 0, g: 0, b: 0, a: 0}
+    - _CausticsTint: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.09554112, g: 0.11329466, b: 0.1792453, a: 1}
+    - _FoamColor: {r: 1, g: 1, b: 1, a: 1}
+    - _NormalScale: {r: 0, g: 0, b: 0, a: 0}
+    - _PathColorIn: {r: 0, g: 0.0063075116, b: 0.41509432, a: 1}
+    - _PathColorOut: {r: 0, g: 0, b: 0, a: 1}
+    - _PathColorTint: {r: 0.3301887, g: 0.32408333, b: 0.31928623, a: 1}
+    - _Power: {r: 1, g: 1, b: 1, a: 1}
+    - _RimColor: {r: 0.063725494, g: 0.063725494, b: 0.063725494, a: 1}
+    - _RimLight: {r: 1, g: 1, b: 1, a: 1}
+    - _ShadowColor: {r: 0.05606976, g: 0.11320752, b: 0.11320752, a: 1}
+    - _TopColor: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []

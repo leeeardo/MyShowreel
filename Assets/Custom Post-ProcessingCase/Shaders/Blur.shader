@@ -277,7 +277,8 @@ Shader "Custom/Postprocess/BlurTest"
 
             half4 RadialBlur(v2f i)
             {
-                float2 blurVector = (_PixelSize - i.uv) * _Radius*0.05;
+                float radialCenter=_PixelSize;
+                float2 blurVector = (radialCenter - i.uv) * _Radius*0.05;
 
                 half4 acumulateColor = half4(0, 0, 0, 0);
 

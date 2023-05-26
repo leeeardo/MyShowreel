@@ -13,7 +13,7 @@ public class CustomPostRendererFeature : ScriptableRendererFeature
     private CustomPostRenderPass beforePostProcess;
     private CustomPostRenderPass afterPostProcess;
     
-    private List<CustomVolumeComponent> components ;
+    private List<CustomVolumeComponent> components;
 
     private RenderTargetHandle afterPostProcessTexture;
     

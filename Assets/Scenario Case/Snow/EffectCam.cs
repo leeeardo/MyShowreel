@@ -10,7 +10,7 @@ public class EffectCam : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Shader.SetGlobalTexture("_GlobalEffectRT",rt);
+        Shader.SetGlobalTexture("_SnowTrace",rt);
         Shader.SetGlobalFloat("_OrthographicCamSize",GetComponent<Camera>().orthographicSize);
     }
 

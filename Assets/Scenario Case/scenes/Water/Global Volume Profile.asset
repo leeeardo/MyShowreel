@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9f1e80a158444958cea45ca9c1c85fe, type: 3}
   m_Name: Scan
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   effectTimeSpan:
     m_OverrideState: 1
     m_Value: 6.39
@@ -143,19 +143,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b85e086ae284ff4ab1a464fa6b30a37, type: 3}
   m_Name: Fog
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   activeHeightFog:
     m_OverrideState: 1
     m_Value: 1
   fogStartHeight:
     m_OverrideState: 1
-    m_Value: -7.4
+    m_Value: -28.1
   fogEndHeight:
     m_OverrideState: 1
     m_Value: 345.81
   heightFogIntensity:
     m_OverrideState: 1
-    m_Value: 2.19
+    m_Value: 0.86
   heightGradient:
     m_OverrideState: 1
     m_Value:
@@ -192,36 +192,36 @@ MonoBehaviour:
     m_Value: 1
   fogNear:
     m_OverrideState: 1
-    m_Value: -51
+    m_Value: 21.58
   fogFar:
     m_OverrideState: 1
-    m_Value: 200
+    m_Value: 245.59
   distanceFogIntensity:
     m_OverrideState: 1
-    m_Value: 2.8
+    m_Value: 1
   distanceGradient:
     m_OverrideState: 1
     m_Value:
       serializedVersion: 2
-      key0: {r: 0.050980397, g: 0.41176474, b: 0.45882356, a: 1}
-      key1: {r: 0.35686275, g: 1, b: 0.78823537, a: 0.050980393}
-      key2: {r: 0, g: 0, b: 0, a: 0}
-      key3: {r: 0, g: 0, b: 0, a: 0}
+      key0: {r: 1, g: 1, b: 1, a: 1}
+      key1: {r: 1, g: 0.35294116, b: 0, a: 1}
+      key2: {r: 1, g: 0.35294116, b: 0, a: 0}
+      key3: {r: 1, g: 0.35294116, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
       key6: {r: 0, g: 0, b: 0, a: 0}
       key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
       ctime1: 65535
-      ctime2: 0
-      ctime3: 0
+      ctime2: 65535
+      ctime3: 65535
       ctime4: 0
       ctime5: 0
       ctime6: 0
       ctime7: 0
       atime0: 0
-      atime1: 65342
-      atime2: 65150
+      atime1: 65535
+      atime2: 65279
       atime3: 0
       atime4: 0
       atime5: 0
@@ -232,7 +232,7 @@ MonoBehaviour:
       m_NumAlphaKeys: 2
   heightDistanceBlend:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 0
 --- !u!114 &1150107693951557605
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -245,40 +245,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fb4fed6c872d8e4ebf776555fc2acec, type: 3}
   m_Name: MyBlur
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   blurType:
     m_OverrideState: 1
-    m_Value: 7
+    m_Value: 6
   filterMode:
     m_OverrideState: 1
     m_Value: 1
   downSample:
     m_OverrideState: 1
-    m_Value: 2
+    m_Value: 1
   iterations:
     m_OverrideState: 1
-    m_Value: 4
+    m_Value: 5
   blurSpread:
     m_OverrideState: 1
     m_Value: 0.44
   blurRadius:
     m_OverrideState: 1
-    m_Value: 0.43
+    m_Value: 1.75
   area:
     m_OverrideState: 1
-    m_Value: 2.07
+    m_Value: 0.87
   spread:
     m_OverrideState: 1
-    m_Value: 2.55
+    m_Value: 2.53
   offset:
     m_OverrideState: 1
     m_Value: 0
   radialCenter:
     m_OverrideState: 1
-    m_Value: {x: 0.83, y: 0.42}
+    m_Value: {x: 0.5, y: 0.5}
   angle:
     m_OverrideState: 1
-    m_Value: 360
+    m_Value: 0
   ShaderPath: Custom/Postprocess/BlurTest
 --- !u!114 &1500467973533902112
 MonoBehaviour:

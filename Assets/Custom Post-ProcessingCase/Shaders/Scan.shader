@@ -136,20 +136,21 @@ Shader "Custom/Postprocess/Scan"
 
             half4 GlitchRGBSplit_HV_Frag(v2f input,float strength) 
             {
-            float splitAmount = strength*0.01*Rand(float2(_ScanTimer,2));
+                float splitAmount = strength*0.01*Rand(float2(_ScanTimer,2));
 
-            half4 ColorR = SAMPLE_TEXTURE2D(_MainTex,sampler_MainTex , float2(input.uv[4].x +splitAmount,input.uv[4].y));
-            half4 ColorG = SAMPLE_TEXTURE2D(_MainTex,sampler_MainTex , input.uv[4]);
-            half4 ColorB = SAMPLE_TEXTURE2D(_MainTex,sampler_MainTex , float2(input.uv[4].x -splitAmount,input.uv[4].y));
+                half4 ColorR = SAMPLE_TEXTURE2D(_MainTex,sampler_MainTex , float2(input.uv[4].x +splitAmount,input.uv[4].y));
+                half4 ColorG = SAMPLE_TEXTURE2D(_MainTex,sampler_MainTex , input.uv[4]);
+                half4 ColorB = SAMPLE_TEXTURE2D(_MainTex,sampler_MainTex , float2(input.uv[4].x -splitAmount,input.uv[4].y));
 
-            return half4(ColorR.r,ColorG.g,ColorB.b,1);
+                return half4(ColorR.r,ColorG.g,ColorB.b,1);
             }   
         
             half4 ScanFrag(v2f input) :SV_Target
             {
                 half4 col = SAMPLE_TEXTURE2D(_MainTex,sampler_MainTex,input.uv[4]);
                 half3 normal = SAMPLE_TEXTURE2D(_CameraNormalsTexture,sampler_CameraNormalsTexture,input.uv[4]);
-                half3 normalSplit = normalize(max(0,abs(normal)-0.2));
+                //normal = normal*2-1;
+                half normalSplit = step(normal.y,0.9);
                 
                 float depthTex = SAMPLE_TEXTURE2D(_CameraDepthTexture,sampler_CameraDepthTexture,input.uv[4]).r;
                 //float depth = LinearEyeDepth(depthTex,_ZBufferParams);
@@ -160,15 +161,15 @@ Shader "Custom/Postprocess/Scan"
                 float scanDistance= distance(worldPos,_HitPos);
                 scanDepth = min(scanDepth,_ScanWidth);
                 float distanceRamp = 1-saturate(scanDepth/scanDistance);
-                _ScanSmoothness = _ScanSmoothness*0.5+0.5;
+                _ScanSmoothness = _ScanSmoothness*0.2+0.5;
                 float halfDistanceRamp = smoothstep(1-_ScanSmoothness,_ScanSmoothness,distanceRamp);
                 distanceRamp = smoothstep(0,0.3,halfDistanceRamp*(1-halfDistanceRamp));
                 
                 //DotAndLineMask
-                float gridXZ = step(frac(worldPos.y*_IsoHeightDensity),_IsoHeightThickness)*(1-normalSplit.y);
-                float gridY = SAMPLE_TEXTURE2D(_GridTexture,sampler_GridTexture,_DotDensity*worldPos.xz)*normalSplit.y;
+                float gridXZ = step(frac(worldPos.y*_IsoHeightDensity),_IsoHeightThickness)*normalSplit;
+                float gridY = SAMPLE_TEXTURE2D(_GridTexture,sampler_GridTexture,_DotDensity*worldPos.xz)*(1-normalSplit);
 
-                float grid = step(1-gridY,_DotSize)+1-step(gridXZ,0.5);
+                float grid = step(1-gridY,_DotSize)+1-step(gridXZ,0.1);
                 
                 float mask = saturate((grid)*(1-halfDistanceRamp));
 

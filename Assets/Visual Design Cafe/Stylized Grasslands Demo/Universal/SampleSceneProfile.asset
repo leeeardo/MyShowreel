@@ -218,6 +218,7 @@ MonoBehaviour:
   - {fileID: -2216439074485837000}
   - {fileID: 3535204518833862206}
   - {fileID: 3989113667515123586}
+  - {fileID: 1824404924157269280}
 --- !u!114 &849379129802519247
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -234,6 +235,73 @@ MonoBehaviour:
   mode:
     m_OverrideState: 1
     m_Value: 2
+--- !u!114 &1824404924157269280
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9f1e80a158444958cea45ca9c1c85fe, type: 3}
+  m_Name: Scan
+  m_EditorClassIdentifier: 
+  active: 0
+  effectTimeSpan:
+    m_OverrideState: 1
+    m_Value: 0.95
+  fadeOutTime:
+    m_OverrideState: 1
+    m_Value: 4
+  scanSpeed:
+    m_OverrideState: 0
+    m_Value: 35
+  scanWidth:
+    m_OverrideState: 0
+    m_Value: 300
+  scanLineSmoothness:
+    m_OverrideState: 0
+    m_Value: 1
+  scanLineColor:
+    m_OverrideState: 1
+    m_Value: {r: 0, g: 0, b: 0, a: 0}
+  dotDensity:
+    m_OverrideState: 0
+    m_Value: 1
+  dotSize:
+    m_OverrideState: 0
+    m_Value: 0.25
+  isoHeightDensity:
+    m_OverrideState: 0
+    m_Value: 0.1
+  isoHeightThickness:
+    m_OverrideState: 0
+    m_Value: 0.1
+  outLine:
+    m_OverrideState: 0
+    m_Value: 1
+  outlineThickness:
+    m_OverrideState: 0
+    m_Value: 0.8
+  decolorationStrength:
+    m_OverrideState: 0
+    m_Value: 1
+  insideBrightness:
+    m_OverrideState: 0
+    m_Value: 1
+  glitchStrength:
+    m_OverrideState: 0
+    m_Value: 1
+  fresnel:
+    m_OverrideState: 0
+    m_Value: 1
+  glitch:
+    m_OverrideState: 0
+    m_Value: 1
+  dotTexture:
+    m_OverrideState: 0
+    m_Value: {fileID: 0}
 --- !u!114 &3535204518833862206
 MonoBehaviour:
   m_ObjectHideFlags: 3

@@ -20,7 +20,7 @@
 		[Header(AboutFoam)]
 		_FoamAmount("Foam Amount" , float) = 1
 		_FoamCutoff("Foam Cutoff" , float) = 1
-		_FoamColor ("Foam Colour", Color) = (1,1,1,1)
+		[HDR]_FoamColor ("Foam Colour", Color) = (1,1,1,1)
 		_FoamSpeed("Foam Speed" , float) = 1
 		_FoamScale("Foam Scale" , float) = 1
 		_FoamNoise("Foam Noise Tex" , 2D) = "white"{}
@@ -39,6 +39,10 @@
 		_CauticsRange("Cautics Range" , Range(0,50)) = 5
 		_CausticsDistort("Caustics Distort" , float) = 1
 		_CausticsSpeed("Caustics Speed" , vector) = (0,0,0,0)
+		
+		_ParamsA("Gerster ParamsA",vector) = (0,0,0,0)
+		_ParamsB("Gerster ParamsB",vector) = (0,0,0,0)
+		_ParamsC("Gerster ParamsC",vector) = (0,0,0,0)
 		[HideInInspector]
 		_Cutoff("Cut Off",float) = 1
 		
@@ -67,6 +71,7 @@
 		float _ShadowStrength , _ReflectStrength,_CausticsDistort , _CauticsRange;
 		float4 _CausticsSpeed;
 		float4 _CausticsTint;
+		float4 _ParamsA,_ParamsB,_ParamsC;
 		CBUFFER_END
 		ENDHLSL
 
@@ -212,22 +217,29 @@
 				float3 worldPos = TransformObjectToWorld(Input.positionOS);
 				float3 normalWS = TransformObjectToWorldNormal(Input.normalOS);
 				float offsetOS = _WaveAmplitude*sin(_WaveSpeed*_Time.y + worldPos.z*_WaveFrequency);
-
-				float3 delta_pos , delta_normalWS;
-				GerstnerWave_float(float4(0,1,1,1),float4(1,10,1,0.3),worldPos,delta_pos,delta_normalWS);
 				
+				
+				float3 delta_pos , delta_normalWS;
+				float3 osNormal=normalWS;
+				GerstnerWave_float(float4(0,1,1,1),_ParamsA,worldPos,delta_pos,delta_normalWS);
 				Input.positionOS.xyz+=delta_pos;
-				//normalWS += delta_normalWS;
-				GerstnerWave_float(float4(1,0,1,1),float4(0.5,5,0.2,0.1),worldPos,delta_pos,delta_normalWS);
+				osNormal+=delta_normalWS;
+				GerstnerWave_float(float4(0.2,1,1,1),_ParamsB,worldPos,delta_pos,delta_normalWS);
 				Input.positionOS.xyz+=delta_pos;
-				//normalWS += delta_normalWS;
+				osNormal+=delta_normalWS;
+				GerstnerWave_float(float4(-0.8,1,1,1),_ParamsC,worldPos,delta_pos,delta_normalWS);
+				Input.positionOS.xyz+=delta_pos;
+				osNormal+=delta_normalWS;
+				osNormal=normalize(osNormal);
 				VertexPositionInputs positionInputs = GetVertexPositionInputs(Input.positionOS.xyz);
 				Output.positionCS = positionInputs.positionCS;
 				Output.positionWS = positionInputs.positionWS;
 				Output.positionSS = positionInputs.positionNDC;
 
+				Input.normalOS.xyz= normalize(TransformWorldToObjectNormal(osNormal));
+				//normalInputs.normalWS;
 				VertexNormalInputs normalInputs = GetVertexNormalInputs(Input.normalOS.xyz);
-				Output.normalWS = normalWS;//normalInputs.normalWS;
+				Output.normalWS = normalInputs.normalWS;
 				Output.tangentWS = normalInputs.tangentWS;
 				Output.bitangentWS = normalInputs.bitangentWS;
 
@@ -244,6 +256,7 @@
 			// Fragment Shader
 			half4 LitPassFragment(Varyings Input) : SV_Target {
 				float3 normalWS = NormalizeNormalPerPixel(Input.normalWS);
+				//return float4(dot(normalWS,GetMainLight().direction).xxx,1);
 				float3 tangentWS = normalize(Input.tangentWS);
 				float3 bitangentWS = normalize(Input.bitangentWS);
 				float3x3 TBN = {tangentWS,bitangentWS,normalWS};
@@ -279,7 +292,7 @@
 				//Foam
 				half eyeDepth = LinearEyeDepth(depthMap.r,_ZBufferParams);
 				float2 foamUV = Input.uv * _FoamScale+_Time.y* _FoamSpeed;
- 				float foamNoise = SAMPLE_TEXTURE2D(_FoamNoise,sampler_FoamNoise,foamUV);
+ 				float foamNoise = SAMPLE_TEXTURE2D(_FoamNoise,sampler_FoamNoise,0.2*Input.positionWS.xz);
 				float foamDepth = saturate((eyeDepth-Input.positionSS.w)/_FoamAmount)*_FoamCutoff;
 				float foamNoiseA = step(foamDepth,foamNoise);
 				float foam = foamNoiseA*_FoamColor.a*(1-depth);
@@ -287,10 +300,15 @@
 				//Foam2
 				//float foamBDepth = saturate((depth-Input.positionCS.z)/_SmallFoamAmount*_SmallFoamCutoff);
 				float foamNoiseB = step(foamNoise,_SmallFoamCutoff);
-				foam+=1-foamNoiseB;
+				float mask = SAMPLE_TEXTURE2D(_CausticsTexture,sampler_CausticsTexture,0.05*Input.positionWS.xz);
+				
+				foam+=mask*smoothstep(0.05,0.1,saturate(Input.positionWS.y-48.5))*(1-foamNoiseB);
+
+				//Fresnel
+				float fresnel = 1-saturate(0.5+0.5*dot(GetWorldSpaceViewDir(Input.positionWS),normal));
 				
 				//ReflectionProbe
-				float3 reflectDir = reflect(-normalize(GetCameraPositionWS()-Input.positionWS), Input.normalWS);
+				float3 reflectDir = reflect(-GetWorldSpaceViewDir(Input.positionWS), normal);
 				reflectDir = BoxProjectedCubemapDirection(reflectDir,Input.positionWS,unity_SpecCube0_ProbePosition,
 					unity_SpecCube0_BoxMin,unity_SpecCube0_BoxMax);
 				half4 rgbm = SAMPLE_TEXTURECUBE_LOD(unity_SpecCube0,samplerunity_SpecCube0, reflectDir,1);
@@ -332,8 +350,10 @@
 				//float4 foamColor= lerp(colormap,_FoamColor,foam);
 				color.rgb = lerp(color.rgb,_FoamColor.rgb,foam);
 				color.rgb = lerp(color.rgb,sky,saturate(depth+_ReflectStrength*2-1));
+				// if(Input.positionWS.y>48.0)
+				// 	return float4(1,0,0,1);
 				return float4(color.rgb*shading,1);
-				//return foamDepth;
+				//return float4(smoothstep(0,0.15,cameraDepth).xxx,1);
 			}
 			ENDHLSL
 		}
@@ -382,6 +402,7 @@
 			{
 			    float2 uv           : TEXCOORD0;
 			    float4 positionCS   : SV_POSITION;
+				float3 normalWS		: TEXCOORD1;
 			};
 
 			float4 GetShadowPositionHClip(Attributes input)
@@ -406,6 +427,36 @@
 			    return positionCS;
 			}
 
+			void GerstnerWave_float (
+				    float4 waveDir, float4 waveParam, float3 p, out float3 delta_pos, out float3 delta_normalWS
+				) {
+				    // waveParam : steepness, waveLength, speed, amplify
+				    float steepness = waveParam.x;
+				    float wavelength = waveParam.y;
+				    float speed = waveParam.z;
+				    float amplify = waveParam.w;
+				    float2 d = normalize(waveDir.xz);
+
+				    float w = 2 * 3.1415 / wavelength;
+				    float f = w * (dot(d, p.xz) - _Time.y * speed);
+				    float sinf = sin(f);
+				    float cosf = cos(f);
+
+				    steepness = clamp(steepness, 0, 1 / (w*amplify));
+
+				    delta_normalWS = float3(
+				        - amplify * w * d.x * cosf,
+				        - steepness * amplify * w * sinf,
+				        - amplify * w * d.y * cosf
+				    );
+
+				    delta_pos = float3(
+				        steepness * amplify * d.x * cosf,
+				        amplify * sinf,
+				        steepness * amplify * d.y * cosf
+				    );
+				}
+			
 			Varyings ShadowPassVertex(Attributes input)
 			{
 			    Varyings output;
@@ -414,8 +465,23 @@
 			    output.uv = TRANSFORM_TEX(input.texcoord, _BaseMap);
 				float3 worldPos = TransformObjectToWorld(input.positionOS);
 				float offsetOS = _WaveAmplitude*sin(_WaveSpeed*_Time.y + worldPos.z*_WaveFrequency);
-				input.positionOS.y+=offsetOS;
+				float3 normalWS = TransformObjectToWorldNormal(input.normalOS);
+				float3 delta_pos , delta_normalWS;
+				GerstnerWave_float(float4(0,1,1,1),_ParamsA,worldPos,delta_pos,delta_normalWS);
+				input.positionOS.xyz+=delta_pos;
+				normalWS+=delta_normalWS;
+				GerstnerWave_float(float4(0.2,1,1,1),_ParamsB,worldPos,delta_pos,delta_normalWS);
+				input.positionOS.xyz+=delta_pos;
+				normalWS+=delta_normalWS;
+				GerstnerWave_float(float4(-0.8,1,1,1),_ParamsC,worldPos,delta_pos,delta_normalWS);
+				input.positionOS.xyz+=delta_pos;
+				normalWS+=delta_normalWS;
+				//normalWS += delta_normalWS;
+				// GerstnerWave_float(float4(1,0,1,1),float4(0.5,5,0.2,0.1),worldPos,delta_pos,delta_normalWS);
+				// input.positionOS.xyz+=delta_pos;
+				//input.positionOS.y+=offsetOS;
 			    output.positionCS = GetShadowPositionHClip(input);
+				output.normalWS = normalWS;
 			    return output;
 			}
 

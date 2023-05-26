@@ -45,9 +45,7 @@ public class GetMouseButtomWorldPos : MonoBehaviour
             scanTimer = 0;
             isScaning = true;
         }
-
         scanTimer += Time.deltaTime;
-        
         if (scanTimer<scan.effectTimeSpan.value&& isScaning)
         {
             Shader.SetGlobalFloat("_ScanTimer" , scanTimer);
@@ -56,7 +54,6 @@ public class GetMouseButtomWorldPos : MonoBehaviour
         {
             isScaning = false;
             Shader.SetGlobalFloat("_ScanTimer" , 0);
-
         }
         
     }
